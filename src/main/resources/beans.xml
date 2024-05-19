@@ -1,0 +1,135 @@
+<beans default-lazy-init="true"
+        xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:beans="http://www.springframework.org/schema/c"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+
+           http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+
+
+    <bean id="NotebookMenu" class="Menu.Menu">
+        <property name="input" ref = "intInp"/>
+        <property name="map">
+            <map>
+                <entry key = "1" value-ref="Command.PrintUpcomingNotesCommand"/>
+                <entry key = "2" value-ref="Command.CreateNewNoteCommand"/>
+                <entry key = "3" value-ref="Command.DeleteNoteCommand"/>
+                <entry key = "4" value-ref="Command.FinishProgramCommand"/>
+            </map>
+        </property>
+    </bean>
+
+
+
+    <bean id = "system" class="Notebook.NotebookSystem">
+        <property name = "Menu" ref = "NotebookMenu"/>
+    </bean>
+
+    <bean class="Command.CreateNewNoteCommand">
+        <property name="EventInput" ref = "eventInput"/>
+        <property name="query" ref="Event.EventQuery"/>
+    </bean>
+
+    <bean class="Command.DeleteNoteCommand">
+    </bean>
+
+    <bean class="Command.FinishProgramCommand">
+        <property ref = "system" name="NotebookSystem"/>
+    </bean>
+
+    <bean class="Command.PrintUpcomingNotesCommand">
+        <property name="query" ref="Event.EventQuery"/>
+    </bean>
+
+    <bean class="Event.EventQuery"/>
+
+
+    <bean id="inputMenu" class="Menu.Menu">
+        <property name="input" ref = "intInp"/>
+        <property name="map">
+            <map>
+                <entry key="1" value-ref="setEventTimeCommand"/>
+                <entry key="2" value-ref="setEventTimeIntervalCommand"/>
+                <entry key="3" value-ref="setMessageCommand"/>
+                <entry key="4" value-ref="setPositionCommand"/>
+                <entry key="5" value-ref="finishBuildingCommand"/>
+            </map>
+        </property>
+    </bean>
+
+    <bean id = "intInp" class="Menu.IntInput"/>
+
+
+    <bean id="setEventTimeIntervalCommand" class="Command.SetEventTimeIntervalCommand">
+    </bean>
+
+    <bean id="setEventTimeCommand" class="Command.SetEventTimeCommand">
+    </bean>
+
+    <bean id="setMessageCommand" class="Command.SetMessageCommand">
+    </bean>
+
+    <bean id="setPositionCommand" class="Command.SetPositionCommand">
+    </bean>
+
+    <bean id="finishBuildingCommand" class="Command.FinishBuildingCommand">
+        <property name="EventInput" ref="eventInput"/>
+    </bean>
+
+    <bean id="proxyEventBuilder" class="Event.ProxyEventBuilder" scope = "singleton">
+    </bean>
+
+    <bean id="eventBuilder" class="Event.EventBuilder" scope = "prototype">
+    </bean>
+
+    <bean id="eventInput" class="Event.EventInput">
+        <property name="menu" ref = "inputMenu"/>
+    </bean>
+
+    <bean id = "eventMap" class = "Event.EventMap" factory-method="getInstance" scope = "singleton"/>
+
+
+    <bean class = "Handlers.LessIntHandler" scope = "prototype">
+        <constructor-arg index="0" value="#{T(Menu.Menu).getActiveMenu().getMapSize()}"/>
+        <property name="handler" ref = "Handlers.BiggerIntHandler"/>
+    </bean>
+
+    <bean class = "Handlers.BiggerIntHandler" scope = "prototype">
+        <constructor-arg index = "0" value="1"/>
+    </bean>
+
+    <bean class = "Event.DependencyManager" scope = "singleton">
+        <constructor-arg index="0" ref="proxyEventBuilder"/>
+    </bean>
+
+
+
+    <aop:config>
+        <aop:aspect id="cache" ref ="cacheAspect">
+            <aop:pointcut id="query" expression="execution(* Event.EventQuery.takeList())"/>
+            <aop:pointcut id="dirty" expression="execution(* Event.EventQuery.addNewEvent(..))"/>
+            <aop:around method="findInCache" pointcut-ref="query"/>
+            <aop:after method="makeDirty" pointcut-ref="dirty"/>
+        </aop:aspect>
+        <aop:aspect id="log" ref ="logAspect">
+            <aop:pointcut id="write" expression="execution(* Menu.IntInput.getInt(..))"/>
+            <aop:after-returning method="log" pointcut-ref="write" returning = "result"/>
+        </aop:aspect>
+    </aop:config>
+
+    <bean id = "cacheAspect" class="AOP.NearMapCacheAspect"/>
+    <bean id = "logAspect" class="AOP.LoggerAspect"/>
+
+
+
+
+    <context:component-scan base-package="main"/>
+</beans>
