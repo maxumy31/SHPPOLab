@@ -3,15 +3,14 @@ package Notebook;
 import Command.*;
 import Event.EventMap;
 import Menu.Menu;
+import Server.NotebookServer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class NotebookSystem
 {
-    private int showInterval = 7;
     boolean isRunning = true;
-
 
     Menu menu;
 
@@ -27,7 +26,7 @@ public class NotebookSystem
     }
 
 
-    public void processCommand(ICommand c)
+    public synchronized void processCommand(ICommand c)
     {
         c.execute();
     }

@@ -1,6 +1,12 @@
 package Command;
+import Command.ServerCommand.CreateNewNoteCommand;
+import Command.ServerCommand.DeleteNoteCommand;
+import Command.ServerCommand.GetListFromHashCommand;
 import Event.EventMap;
+import Event.IEvent;
 import Event.Time.HashDate;
+import Menu.IntInput;
+import Server.NotebookServer;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.io.BufferedReader;
@@ -9,8 +15,9 @@ import java.io.InputStreamReader;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
-public class DeleteNoteCommand implements ICommand
+public class AskToDeleteNoteCommand implements ICommand
 {
     @Override
     public void execute()
@@ -18,7 +25,9 @@ public class DeleteNoteCommand implements ICommand
         ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("beans.xml");
         Date toDelete = inputDeleteEvent();
         if(toDelete == null) return;
-        ctx.getBean(EventMap.class).chooseToDelete(new HashDate(toDelete));
+        DeleteNoteCommand c = ctx.getBean(DeleteNoteCommand.class);
+        c.setEvent(chooseToDelete(new HashDate(toDelete)));
+        ctx.getBean(NotebookServer.class).addCommandToQueue(c);
         ctx.close();
     }
 
@@ -56,5 +65,25 @@ public class DeleteNoteCommand implements ICommand
         }
         System.out.println(d);
         return d;
+    }
+
+    public IEvent chooseToDelete(HashDate d) {
+        GetListFromHashCommand c = new GetListFromHashCommand();
+        c.setHashDate(d);
+        ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("beans.xml");
+        ctx.getBean(NotebookServer.class).addCommandToQueue(c);
+        List<IEvent> l = c.waitList();
+        if (l == null) return null;
+        int lastID = 0;
+        for (IEvent n : l) {
+            System.out.println(lastID + " - номер мероприятия");
+            System.out.println(n);
+            System.out.println(' ');
+            lastID++;
+        }
+
+        System.out.println("Какой номер удалить?");
+        IntInput inp = new IntInput();
+        return l.get(inp.getInt());
     }
 }

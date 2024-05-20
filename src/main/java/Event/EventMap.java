@@ -22,30 +22,20 @@ public class EventMap
         return instance;
     }
 
-    public void chooseToDelete(HashDate d)
+    public void delete(HashDate d,int i)
     {
-        int hash = d.hashCode();
-        List<IEvent> l = formListFromHash(hash);
-        if(l == null) return;
-        Map<Integer,IEvent> idMap = new HashMap<>();
-        int lastID = 0;
-        for(IEvent n : l)
-        {
-            idMap.put(lastID,n);
-            System.out.println(lastID + " - номер мероприятия");
-            System.out.println(n);
-            System.out.println(' ');
-            lastID++;
-        }
-
-        System.out.println("Какой номер удалить?");
-        Scanner in = new Scanner(System.in);
-        int deleteNumber = in.nextInt();
-        List<IEvent> oldList = eventMap.get(hash);
-        ArrayList<IEvent> newList = new ArrayList<>(oldList);
-        newList.remove(idMap.get(deleteNumber));
-        eventMap.replace(hash,newList);
+        List<IEvent> oldList = eventMap.get(d.hashCode());
+        oldList.remove(i);
     }
+
+    public void delete(IEvent e)
+    {
+        List<IEvent> oldList = eventMap.get(e.hashCode());
+        oldList.remove(e);
+    }
+
+
+
 
     public void addNewEvent(IEvent eve)
     {

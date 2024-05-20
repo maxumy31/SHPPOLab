@@ -20,8 +20,8 @@
         <property name="map">
             <map>
                 <entry key = "1" value-ref="Command.PrintUpcomingNotesCommand"/>
-                <entry key = "2" value-ref="Command.CreateNewNoteCommand"/>
-                <entry key = "3" value-ref="Command.DeleteNoteCommand"/>
+                <entry key = "2" value-ref="Command.AskToCreateNewNoteCommand"/>
+                <entry key = "3" value-ref="Command.AskToDeleteNoteCommand"/>
                 <entry key = "4" value-ref="Command.FinishProgramCommand"/>
             </map>
         </property>
@@ -33,12 +33,11 @@
         <property name = "Menu" ref = "NotebookMenu"/>
     </bean>
 
-    <bean class="Command.CreateNewNoteCommand">
+    <bean class="Command.AskToCreateNewNoteCommand">
         <property name="EventInput" ref = "eventInput"/>
-        <property name="query" ref="Event.EventQuery"/>
     </bean>
 
-    <bean class="Command.DeleteNoteCommand">
+    <bean class="Command.AskToDeleteNoteCommand">
     </bean>
 
     <bean class="Command.FinishProgramCommand">
@@ -46,10 +45,8 @@
     </bean>
 
     <bean class="Command.PrintUpcomingNotesCommand">
-        <property name="query" ref="Event.EventQuery"/>
     </bean>
 
-    <bean class="Event.EventQuery"/>
 
 
     <bean id="inputMenu" class="Menu.Menu">
@@ -114,7 +111,7 @@
 
     <aop:config>
         <aop:aspect id="cache" ref ="cacheAspect">
-            <aop:pointcut id="query" expression="execution(* Event.EventQuery.takeList())"/>
+            <aop:pointcut id="query" expression="execution(* Event.EventQuery.takeList(..))"/>
             <aop:pointcut id="dirty" expression="execution(* Event.EventQuery.addNewEvent(..))"/>
             <aop:around method="findInCache" pointcut-ref="query"/>
             <aop:after method="makeDirty" pointcut-ref="dirty"/>
@@ -128,7 +125,19 @@
     <bean id = "cacheAspect" class="AOP.NearMapCacheAspect"/>
     <bean id = "logAspect" class="AOP.LoggerAspect"/>
 
+    <bean id = "serverRunnable" class="Server.ServerRunnable">
+        <constructor-arg index="0" ref="NotebookServer"/>
+    </bean>
 
+    <bean id = "NotebookServer" factory-method="getInstance" class="Server.NotebookServer"/>
+
+    <bean id = "notesToList" class="Command.ServerCommand.PrepareNotesToListCommand" scope="prototype"/>
+    <bean class="Command.ServerCommand.DeleteNoteCommand" scope="prototype"/>
+    <bean class="Command.ServerCommand.GetListFromHashCommand" scope="prototype"/>
+    <bean class="Command.ServerCommand.CreateNewNoteCommand" scope="prototype"/>
+    <bean class="Command.ServerCommand.CloseServerCommand" scope="prototype"/>
+
+    <bean class="Event.EventQuery"/>
 
 
     <context:component-scan base-package="main"/>

@@ -1,29 +1,28 @@
 package Command;
+import Command.ServerCommand.CreateNewNoteCommand;
 import Event.EventInput;
 import Event.EventMap;
 import Event.EventQuery;
-import jdk.jfr.Event;
+import Server.NotebookServer;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-public class CreateNewNoteCommand implements ICommand
+public class AskToCreateNewNoteCommand implements ICommand
 {
     EventInput input;
-    EventQuery query;
 
     @Override
     public void execute()
     {
         ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("beans.xml");
-        EventMap m=  ctx.getBean(EventMap.class);
+        EventMap m = ctx.getBean(EventMap.class);
         var v = input.input();
-        query.addNewEvent(v);
+        CreateNewNoteCommand c = ctx.getBean(CreateNewNoteCommand.class);
+        c.setEvent(v);
+        ctx.getBean(NotebookServer.class).addCommandToQueue(c);
+        //c.waitUntilCreate();
         ctx.close();
     }
 
-    public void setQuery(EventQuery q)
-    {
-        query = q;
-    }
 
     public void setEventInput(EventInput i)
     {

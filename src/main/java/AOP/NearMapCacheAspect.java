@@ -42,6 +42,7 @@ public class NearMapCacheAspect
         if(!isDirty)
         {
             e = list;
+            System.out.println("Caching");
         }
         else
         {

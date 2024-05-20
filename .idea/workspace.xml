@@ -4,7 +4,48 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b1553870-8fae-474b-87ec-008434126272" name="Changes" comment="" />
+    <list default="true" id="b1553870-8fae-474b-87ec-008434126272" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/Command/ServerCommand/CloseServerCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Command/ServerCommand/CreateNewNoteCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Command/ServerCommand/DeleteNoteCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Command/ServerCommand/GetListFromHashCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Command/ServerCommand/IAwaitCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Command/ServerCommand/IServerCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Command/ServerCommand/PrepareNotesToListCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Server/NotebookServer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Server/ServerRunnable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.7/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/executionHistory/executionHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.7/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.7/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.7/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.7/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/fileHashes/resourceHashesCache.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Logs.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Logs.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/AOP/LoggerAspect.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/AOP/LoggerAspect.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/AOP/NearMapCacheAspect.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/AOP/NearMapCacheAspect.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Command/CreateNewNoteCommand.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Command/DeleteNoteCommand.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Command/PrintUpcomingNotesCommand.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/Command/PrintUpcomingNotesCommand.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Event/EventMap.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/Event/EventMap.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Notebook/NotebookSystem.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/Notebook/NotebookSystem.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/beans.xml" beforeDir="false" afterPath="$PROJECT_DIR$/build/resources/main/beans.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/compileTransaction/stash-dir/LoggerAspect.class.uniqueId0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AOP/LoggerAspect.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/AOP/LoggerAspect.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AOP/NearMapCacheAspect.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/AOP/NearMapCacheAspect.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Command/CreateNewNoteCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Command/AskToCreateNewNoteCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Command/DeleteNoteCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Command/AskToDeleteNoteCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Command/FinishProgramCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Command/FinishProgramCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Command/PrintUpcomingNotesCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Command/PrintUpcomingNotesCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Event/EventMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Event/EventMap.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Notebook/NotebookSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Notebook/NotebookSystem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/beans.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/beans.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -35,6 +76,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="package-info" />
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -61,7 +104,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "Main",
+    "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "H:/HPPO"
   }
@@ -106,11 +149,6 @@
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/Command/FinishBuildingCommand.java</url>
-          <line>18</line>
-          <option name="timeStamp" value="24" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/Event/EventInput.java</url>
           <line>52</line>

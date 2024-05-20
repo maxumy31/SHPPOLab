@@ -1,26 +1,38 @@
 import AOP.NearMapCacheAspect;
-import Command.CreateNewNoteCommand;
-import Command.DeleteNoteCommand;
-import Command.FinishProgramCommand;
-import Command.PrintUpcomingNotesCommand;
-import Event.DependencyManager;
-import Event.IProxyBuilder;
 import Notebook.NotebookSystem;
+import Server.NotebookServer;
+import Server.ServerRunnable;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import Menu.Menu;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class Main
 {
     public static void main(String[] args)
     {
+        ServerRunnable r = new ServerRunnable(NotebookServer.getInstance());
+        new Thread(r).start();
+
         ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("beans.xml");
-        ApplicationContext context = new AnnotationConfigApplicationContext(NearMapCacheAspect.class);
+
+        Thread serverThread = new Thread(ctx.getBean(ServerRunnable.class));
+
         NotebookSystem notebook = ctx.getBean("system", NotebookSystem.class);
+        ctx.close();
+        serverThread.start();
         notebook.startMainLoop();
 
-        ctx.close();
+        try {
+            serverThread.interrupt();
+        }
+        catch (SecurityException e)
+        {
+
+        }
+
+
+
+
     }
 
     //Синглтон
@@ -33,5 +45,9 @@ public class Main
 
     //2.
     //ioc и di
-    //aop
+    //aop(cache, logger)
+
+    //3.
+    //Задача о спящем брадобрее
+
 }
